@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./index.css";
+import { Pie, Bar } from 'react-chartjs-2'
+import { Chart, registerables } from 'chart.js'
+Chart.register(...registerables)
 
 function CombinedData({ data }) {
   // const [month, setMonth] = useState(null);
@@ -33,33 +36,12 @@ function CombinedData({ data }) {
 
     fetchData();
   }, [data]); // The empty dependency array ensures that the effect runs only once, similar to componentDidMount
-
-  // const pichartdata = {
-  //   labels: pieChartData.map((item: { category: any; }) => item.category),
-  //   datasets: [
-  //     {
-  //       data: pieChartData.map((item: { count: any; }) => item.count),
-  //       backgroundColor: ['red', 'blue', 'yellow', 'green'],
-  //     },
-  //   ],
-  // };
-
-  // const barchartdata = {
-  //   labels: barChartData.map((item: { range: any; }) => item.range),
-  //   datasets: [
-  //     {
-  //       label: 'Count',
-  //       data: barChartData.map((item: { count: any; }) => item.count),
-  //       backgroundColor: 'rgba(54, 162, 235, 0.6)',
-  //       borderColor: 'rgba(54, 162, 235, 1)',
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
-
-  // console.log(pichartdata);
-  // console.log(barchartdata);
   
+
+  const generateRandomColor = () => {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  };
+
 
   return (
     <div className="container">
@@ -75,6 +57,7 @@ function CombinedData({ data }) {
       </div>
       <h1>Bar Chart Data</h1>
       <div className="barchart">
+        <div className="data">
         {barChartData && (
           <ul>
             {barChartData.map((item: { range: React.Key | null | undefined; count: any; }) => (
@@ -82,9 +65,35 @@ function CombinedData({ data }) {
             ))}
           </ul>
         )}
+        </div>
+        <div className="chart">
+        {pieChartData && (
+          <Bar
+            data={{
+              labels: pieChartData.map((item: { category: any; }) => item.category),
+              datasets: [{
+                data: pieChartData.map((item: { count: any; }) => item.count),
+                backgroundColor: pieChartData.map(() => generateRandomColor()), // Generate colors dynamically
+              }],
+            }}
+            options={{
+              title: {
+                display: true,
+                text: 'Class Strength',
+                fontSize: 20,
+              },
+              legend: {
+                display: true,
+                position: 'right',
+              },
+            }}
+          />
+        )}
+        </div>
       </div>
       <h1>Pie Chart Data</h1>
       <div className="piechart">
+        <div className="data">
         {pieChartData && (
           <ul>
             {pieChartData.map((item: { category: React.Key | null | undefined; count: any; }) => (
@@ -94,6 +103,31 @@ function CombinedData({ data }) {
             ))}
           </ul>
         )}
+        </div>
+        <div className="chart">
+        {pieChartData && (
+          <Pie
+            data={{
+              labels: pieChartData.map((item: { category: any; }) => item.category),
+              datasets: [{
+                data: pieChartData.map((item: { count: any; }) => item.count),
+                backgroundColor: pieChartData.map(() => generateRandomColor()), // Generate colors dynamically
+              }],
+            }}
+            options={{
+              title: {
+                display: true,
+                text: 'Class Strength',
+                fontSize: 20,
+              },
+              legend: {
+                display: true,
+                position: 'right',
+              },
+            }}
+          />
+        )}
+        </div>
       </div>
       
     </div>

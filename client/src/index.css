@@ -73,13 +73,19 @@ button:hover {
   background-color: #0056b3;
 }
 
-.barchart,
+
 .stats,
-.piechart {
+.data {
   background: orange;
   padding: 25px;
   border-radius: 15px;
   width: max-content;
+}
+
+.piechart, .barchart{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 /* Optional: Add media queries for responsive design */
