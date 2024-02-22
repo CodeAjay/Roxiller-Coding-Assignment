@@ -67,13 +67,13 @@ function CombinedData({ data }) {
         )}
         </div>
         <div className="chart">
-        {pieChartData && (
+        {barChartData && (
           <Bar
             data={{
-              labels: pieChartData.map((item: { category: any; }) => item.category),
+              labels: barChartData.map((item: { range: any; }) => item.range),
               datasets: [{
-                data: pieChartData.map((item: { count: any; }) => item.count),
-                backgroundColor: pieChartData.map(() => generateRandomColor()), // Generate colors dynamically
+                data: barChartData.map((item: { count: any; }) => item.count),
+                backgroundColor: barChartData.map(() => generateRandomColor()), // Generate colors dynamically
               }],
             }}
             options={{
